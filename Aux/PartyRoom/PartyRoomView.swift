@@ -60,6 +60,8 @@ class PartyRoomView: UIView {
         
         trackListCollection.delegate = self
         trackListCollection.dataSource = self
+        
+        playerView.configure(with: tracks[0])
     }
     
     private func setupConstraints() {

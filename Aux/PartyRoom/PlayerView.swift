@@ -17,6 +17,13 @@ class PlayerView: UIView {
         return button
     }()
     
+    let currentTrackLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityLabel = "PlayerViewTrackNameLabel"
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -32,12 +39,13 @@ class PlayerView: UIView {
     }
     
     public func configure(with track: Track) {
-        // TODO
+        currentTrackLabel.text = "\(track.artistName) - \(track.name)"
     }
     
     private func setupViews() {
         self.addSubview(skipButton)
         self.addSubview(playButton)
+        self.addSubview(currentTrackLabel)
     }
     
     private func setupConstraints() {
@@ -55,5 +63,11 @@ class PlayerView: UIView {
             skipButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             skipButton.heightAnchor.constraint(equalToConstant: 40),
             skipButton.widthAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        // CurrentTrack constraints
+        NSLayoutConstraint.activate([
+            currentTrackLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            currentTrackLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5)
         ])
     }}
