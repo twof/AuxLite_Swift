@@ -150,4 +150,8 @@ extension PartyRoomView: TrackSearchViewDelegate {
         tracks.append(track)
         trackListCollection.reloadData()
     }
+    
+    func didSelectExit() {
+        trackSearchView.isHidden = true
+    }
 }

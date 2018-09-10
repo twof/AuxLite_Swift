@@ -80,16 +80,16 @@ class PlayerView: UIView {
         NSLayoutConstraint.activate([
             playButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             playButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            playButton.heightAnchor.constraint(equalToConstant: 40),
-            playButton.widthAnchor.constraint(equalToConstant: 40)
+            playButton.heightAnchor.constraint(equalToConstant: 70),
+            playButton.widthAnchor.constraint(equalToConstant: 70)
         ])
         
         // SkipButton constraints
         NSLayoutConstraint.activate([
             skipButton.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 20),
             skipButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            skipButton.heightAnchor.constraint(equalToConstant: 40),
-            skipButton.widthAnchor.constraint(equalToConstant: 40)
+            skipButton.heightAnchor.constraint(equalToConstant: 30),
+            skipButton.widthAnchor.constraint(equalToConstant: 30)
         ])
         
         // CurrentTrack constraints
@@ -100,10 +100,10 @@ class PlayerView: UIView {
         
         // AddTrack constraints
         NSLayoutConstraint.activate([
-            addTrackButton.topAnchor.constraint(equalTo: self.topAnchor),
-            addTrackButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            addTrackButton.heightAnchor.constraint(equalToConstant: 40),
-            addTrackButton.widthAnchor.constraint(equalToConstant: 40)
+            addTrackButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 30),
+            addTrackButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
+            addTrackButton.heightAnchor.constraint(equalToConstant: 30),
+            addTrackButton.widthAnchor.constraint(equalToConstant: 30)
         ])
     }
 }

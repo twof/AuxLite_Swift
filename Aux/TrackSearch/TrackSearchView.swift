@@ -2,6 +2,7 @@ import UIKit
 
 protocol TrackSearchViewDelegate {
     func didSelect(track: Track)
+    func didSelectExit()
 }
 
 class TrackSearchView: UIView {
@@ -138,6 +139,10 @@ extension TrackSearchView: TrackSearchHeaderViewDelegate {
     func searchTextDidChage(text: String) {
         self.searchText = text
         trackListCollection.reloadData()
+    }
+    
+    func didSelectExit() {
+        self.delegate?.didSelectExit()
     }
 }
 
