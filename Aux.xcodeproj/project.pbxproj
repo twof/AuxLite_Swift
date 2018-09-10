@@ -13,6 +13,7 @@
 		24D5CC2F214600FD00E54FCF /* PartyRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC2E214600FD00E54FCF /* PartyRoomView.swift */; };
 		24D5CC322146052C00E54FCF /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC312146052C00E54FCF /* Track.swift */; };
 		24D5CC34214605FD00E54FCF /* PartyRoomTrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC33214605FD00E54FCF /* PartyRoomTrackCell.swift */; };
+		24D5CC3621460D0300E54FCF /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC3521460D0300E54FCF /* PlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		24D5CC2E214600FD00E54FCF /* PartyRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyRoomView.swift; sourceTree = "<group>"; };
 		24D5CC312146052C00E54FCF /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		24D5CC33214605FD00E54FCF /* PartyRoomTrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyRoomTrackCell.swift; sourceTree = "<group>"; };
+		24D5CC3521460D0300E54FCF /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				24D5CC2B2145FD8000E54FCF /* PartyRoomViewController.swift */,
 				24D5CC2E214600FD00E54FCF /* PartyRoomView.swift */,
 				24D5CC33214605FD00E54FCF /* PartyRoomTrackCell.swift */,
+				24D5CC3521460D0300E54FCF /* PlayerView.swift */,
 			);
 			path = PartyRoom;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 				24D5CC2C2145FD8000E54FCF /* PartyRoomViewController.swift in Sources */,
 				24D5CC34214605FD00E54FCF /* PartyRoomTrackCell.swift in Sources */,
 				24D5CC2F214600FD00E54FCF /* PartyRoomView.swift in Sources */,
+				24D5CC3621460D0300E54FCF /* PlayerView.swift in Sources */,
 				24D5CC1A2145FD0A00E54FCF /* AppDelegate.swift in Sources */,
 				24D5CC322146052C00E54FCF /* Track.swift in Sources */,
 			);

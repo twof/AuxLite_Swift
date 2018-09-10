@@ -11,11 +11,30 @@ class PartyRoomView: UIView {
         collection.accessibilityLabel = "trackListCollection"
         return collection
     }()
+    let playerView: PlayerView =  {
+        let player = PlayerView(frame: .zero)
+        player.translatesAutoresizingMaskIntoConstraints = false
+        player.accessibilityLabel = "PlayerView"
+        player.backgroundColor = .red
+        return player
+    }()
     
     var tracks: [Track] = [
         Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
         Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
-        Track(name: "Gasoline", artistName: "Alpine", length: 10)
+        Track(name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(name: "Gasoline", artistName: "Alpine", length: 10),
     ]
     
     override init(frame: CGRect) {
@@ -36,6 +55,7 @@ class PartyRoomView: UIView {
     
     private func setupViews() {
         self.addSubview(trackListCollection)
+        self.addSubview(playerView)
         self.backgroundColor = .red
         
         trackListCollection.delegate = self
@@ -49,7 +69,15 @@ class PartyRoomView: UIView {
             trackListCollection.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             trackListCollection.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             trackListCollection.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            trackListCollection.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
+            trackListCollection.topAnchor.constraint(equalTo: self.topAnchor, constant: 200),
+        ])
+        
+        // PlayerView constraints
+        NSLayoutConstraint.activate([
+            playerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            playerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            playerView.bottomAnchor.constraint(equalTo: trackListCollection.topAnchor),
+            playerView.topAnchor.constraint(equalTo: self.topAnchor),
         ])
     }
     
@@ -58,8 +86,11 @@ class PartyRoomView: UIView {
     }
 }
 
-extension PartyRoomView: UICollectionViewDelegate {
-    
+extension PartyRoomView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = CGFloat(75)
+        return CGSize(width: collectionView.bounds.size.width - 30, height: height)
+    }
 }
 
 extension PartyRoomView: UICollectionViewDataSource {
