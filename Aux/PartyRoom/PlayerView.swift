@@ -17,7 +17,16 @@ class PlayerView: UIView {
     let playButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setImage(#imageLiteral(resourceName: "PlayIcon"), for: UIControlState.normal)
-         button.tintColor = .black
+        button.tintColor = .black
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityLabel = "PlayerSkipButton"
+        return button
+    }()
+    
+    let addTrackButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setImage(#imageLiteral(resourceName: "PlayIcon"), for: UIControlState.normal)
+        button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         button.accessibilityLabel = "PlayerSkipButton"
         return button
