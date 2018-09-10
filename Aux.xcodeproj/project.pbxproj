@@ -14,6 +14,8 @@
 		24D5CC322146052C00E54FCF /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC312146052C00E54FCF /* Track.swift */; };
 		24D5CC34214605FD00E54FCF /* PartyRoomTrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC33214605FD00E54FCF /* PartyRoomTrackCell.swift */; };
 		24D5CC3621460D0300E54FCF /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC3521460D0300E54FCF /* PlayerView.swift */; };
+		24D5CC3B21461AA400E54FCF /* TrackSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC3A21461AA400E54FCF /* TrackSearchView.swift */; };
+		24D5CC3D21461AE900E54FCF /* TrackSearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC3C21461AE900E54FCF /* TrackSearchHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		24D5CC312146052C00E54FCF /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		24D5CC33214605FD00E54FCF /* PartyRoomTrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyRoomTrackCell.swift; sourceTree = "<group>"; };
 		24D5CC3521460D0300E54FCF /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		24D5CC3A21461AA400E54FCF /* TrackSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSearchView.swift; sourceTree = "<group>"; };
+		24D5CC3C21461AE900E54FCF /* TrackSearchHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSearchHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,7 @@
 		24D5CC182145FD0A00E54FCF /* Aux */ = {
 			isa = PBXGroup;
 			children = (
+				24D5CC3921461A7600E54FCF /* TrackSearch */,
 				24D5CC302146052100E54FCF /* Models */,
 				24D5CC2D214600E800E54FCF /* PartyRoom */,
 				24D5CC192145FD0A00E54FCF /* AppDelegate.swift */,
@@ -84,6 +89,15 @@
 				24D5CC312146052C00E54FCF /* Track.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		24D5CC3921461A7600E54FCF /* TrackSearch */ = {
+			isa = PBXGroup;
+			children = (
+				24D5CC3A21461AA400E54FCF /* TrackSearchView.swift */,
+				24D5CC3C21461AE900E54FCF /* TrackSearchHeaderView.swift */,
+			);
+			path = TrackSearch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,7 +172,9 @@
 				24D5CC2C2145FD8000E54FCF /* PartyRoomViewController.swift in Sources */,
 				24D5CC34214605FD00E54FCF /* PartyRoomTrackCell.swift in Sources */,
 				24D5CC2F214600FD00E54FCF /* PartyRoomView.swift in Sources */,
+				24D5CC3B21461AA400E54FCF /* TrackSearchView.swift in Sources */,
 				24D5CC3621460D0300E54FCF /* PlayerView.swift in Sources */,
+				24D5CC3D21461AE900E54FCF /* TrackSearchHeaderView.swift in Sources */,
 				24D5CC1A2145FD0A00E54FCF /* AppDelegate.swift in Sources */,
 				24D5CC322146052C00E54FCF /* Track.swift in Sources */,
 			);

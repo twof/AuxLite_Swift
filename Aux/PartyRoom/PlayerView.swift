@@ -8,6 +8,7 @@ class PlayerView: UIView {
     let skipButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setImage(#imageLiteral(resourceName: "SkipIcon"), for: UIControlState.normal)
+        button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         button.accessibilityLabel = "PlayerSkipButton"
         return button
@@ -16,6 +17,7 @@ class PlayerView: UIView {
     let playButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setImage(#imageLiteral(resourceName: "PlayIcon"), for: UIControlState.normal)
+         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         button.accessibilityLabel = "PlayerSkipButton"
         return button
