@@ -2,6 +2,7 @@ import UIKit
 
 protocol PlayerViewDelegate {
     func didPressSkip()
+    func didPressSearch()
 }
 
 class PlayerView: UIView {
@@ -25,7 +26,7 @@ class PlayerView: UIView {
     
     let addTrackButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.setImage(#imageLiteral(resourceName: "PlayIcon"), for: UIControlState.normal)
+        button.setImage(#imageLiteral(resourceName: "PlusIcon"), for: UIControlState.normal)
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         button.accessibilityLabel = "PlayerSkipButton"
@@ -63,9 +64,14 @@ class PlayerView: UIView {
         self.addSubview(skipButton)
         self.addSubview(playButton)
         self.addSubview(currentTrackLabel)
+        self.addSubview(addTrackButton)
         
-        skipButton.addTargetClosure { (button) in
+        skipButton.addTargetClosure(for: .touchUpInside) { (button) in
             self.delegate?.didPressSkip()
+        }
+        
+        addTrackButton.addTargetClosure(for: .touchUpInside) { (button) in
+            self.delegate?.didPressSearch()
         }
     }
     
@@ -91,42 +97,13 @@ class PlayerView: UIView {
             currentTrackLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             currentTrackLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5)
         ])
-    }
-}
-
-extension UIButton {
-    
-    typealias UIButtonTargetClosure = (UIButton) -> ()
-    
-    private struct AssociatedKeys {
-        static var targetClosure = "targetClosure"
-    }
-    
-    class ClosureWrapper: NSObject {
-        let closure: UIButtonTargetClosure
-        init(_ closure: @escaping UIButtonTargetClosure) {
-            self.closure = closure
-        }
-    }
-    
-    private var targetClosure: UIButtonTargetClosure? {
-        get {
-            guard let closureWrapper = objc_getAssociatedObject(self, &AssociatedKeys.targetClosure) as? ClosureWrapper else { return nil }
-            return closureWrapper.closure
-        }
-        set(newValue) {
-            guard let newValue = newValue else { return }
-            objc_setAssociatedObject(self, &AssociatedKeys.targetClosure, ClosureWrapper(newValue), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-    
-    func addTargetClosure(closure: @escaping UIButtonTargetClosure) {
-        targetClosure = closure
-        addTarget(self, action: #selector(UIButton.closureAction), for: .touchUpInside)
-    }
-    
-    @objc func closureAction() {
-        guard let targetClosure = targetClosure else { return }
-        targetClosure(self)
+        
+        // AddTrack constraints
+        NSLayoutConstraint.activate([
+            addTrackButton.topAnchor.constraint(equalTo: self.topAnchor),
+            addTrackButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            addTrackButton.heightAnchor.constraint(equalToConstant: 40),
+            addTrackButton.widthAnchor.constraint(equalToConstant: 40)
+        ])
     }
 }

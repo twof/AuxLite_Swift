@@ -1,5 +1,9 @@
 import UIKit
 
+protocol TrackSearchViewDelegate {
+    func didSelect(track: Track)
+}
+
 class TrackSearchView: UIView {
     let trackListCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -18,6 +22,8 @@ class TrackSearchView: UIView {
         player.backgroundColor = .red
         return player
     }()
+    
+    var delegate: TrackSearchViewDelegate?
     
     var searchText = ""
     
@@ -40,7 +46,12 @@ class TrackSearchView: UIView {
     ]
     
     var filteredTracks: [Track] {
-        return tracks.filter { $0.name.range(of: searchText.lowercased()) != nil || $0.artistName.range(of: searchText.lowercased()) != nil }
+        return tracks.filter { track in
+            let foundInName = track.name.lowercased().contains(other: searchText.lowercased())
+            let foundInArtist = track.artistName.lowercased().contains(other: searchText.lowercased())
+            
+            return foundInName || foundInArtist
+        }
     }
     
     override init(frame: CGRect) {
@@ -61,15 +72,15 @@ class TrackSearchView: UIView {
     
     private func setupViews() {
         self.addSubview(trackListCollection)
-        self.addSubview(playerView)
+        self.addSubview(trackSearchHeader)
         self.backgroundColor = .red
         
         trackListCollection.delegate = self
         trackListCollection.dataSource = self
         
-        playerView.delegate = self
+        trackSearchHeader.delegate = self
         
-        playerView.configure(with: tracks[0])
+        trackSearchHeader.configure(with: tracks[0])
     }
     
     private func setupConstraints() {
@@ -97,6 +108,10 @@ class TrackSearchView: UIView {
 }
 
 extension TrackSearchView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.delegate?.didSelect(track: filteredTracks[indexPath.row])
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = CGFloat(75)
         return CGSize(width: collectionView.bounds.size.width - 30, height: height)
@@ -123,6 +138,12 @@ extension TrackSearchView: TrackSearchHeaderViewDelegate {
     func searchTextDidChage(text: String) {
         self.searchText = text
         trackListCollection.reloadData()
+    }
+}
+
+extension String {
+    func contains(other string: String) -> Bool {
+        return self.range(of: string) != nil
     }
 }
 

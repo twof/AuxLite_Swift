@@ -19,6 +19,14 @@ class PartyRoomView: UIView {
         return player
     }()
     
+    let trackSearchView: TrackSearchView = {
+        let searchView = TrackSearchView(frame: .zero)
+        searchView.translatesAutoresizingMaskIntoConstraints = false
+        searchView.accessibilityLabel = "TrackSearchView"
+        searchView.isHidden = true
+        return searchView
+    }()
+    
     var tracks: [Track] = [
         Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
         Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
@@ -56,12 +64,15 @@ class PartyRoomView: UIView {
     private func setupViews() {
         self.addSubview(trackListCollection)
         self.addSubview(playerView)
+        self.addSubview(trackSearchView)
+        
         self.backgroundColor = .red
         
         trackListCollection.delegate = self
         trackListCollection.dataSource = self
         
         playerView.delegate = self
+        trackSearchView.delegate = self
         
         playerView.configure(with: tracks[0])
     }
@@ -82,6 +93,14 @@ class PartyRoomView: UIView {
             playerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             playerView.bottomAnchor.constraint(equalTo: trackListCollection.topAnchor),
             playerView.topAnchor.constraint(equalTo: self.topAnchor),
+        ])
+        
+        // TrackSearch constraints
+        NSLayoutConstraint.activate([
+            trackSearchView.topAnchor.constraint(equalTo: self.topAnchor),
+            trackSearchView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            trackSearchView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            trackSearchView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
         ])
     }
     
@@ -117,6 +136,18 @@ extension PartyRoomView: PlayerViewDelegate {
     func didPressSkip() {
         tracks.remove(at: 0)
         playerView.configure(with: tracks[0])
+        trackListCollection.reloadData()
+    }
+    
+    func didPressSearch() {
+        trackSearchView.isHidden = false
+    }
+}
+
+extension PartyRoomView: TrackSearchViewDelegate {
+    func didSelect(track: Track) {
+        trackSearchView.isHidden = true
+        tracks.append(track)
         trackListCollection.reloadData()
     }
 }
