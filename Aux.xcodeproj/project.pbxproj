@@ -16,6 +16,7 @@
 		24D5CC3621460D0300E54FCF /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC3521460D0300E54FCF /* PlayerView.swift */; };
 		24D5CC3B21461AA400E54FCF /* TrackSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC3A21461AA400E54FCF /* TrackSearchView.swift */; };
 		24D5CC3D21461AE900E54FCF /* TrackSearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC3C21461AE900E54FCF /* TrackSearchHeaderView.swift */; };
+		24D5CC402146311300E54FCF /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC3F2146311300E54FCF /* UIControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		24D5CC3521460D0300E54FCF /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		24D5CC3A21461AA400E54FCF /* TrackSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSearchView.swift; sourceTree = "<group>"; };
 		24D5CC3C21461AE900E54FCF /* TrackSearchHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSearchHeaderView.swift; sourceTree = "<group>"; };
+		24D5CC3F2146311300E54FCF /* UIControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		24D5CC182145FD0A00E54FCF /* Aux */ = {
 			isa = PBXGroup;
 			children = (
+				24D5CC3E2146310500E54FCF /* Extensions */,
 				24D5CC3921461A7600E54FCF /* TrackSearch */,
 				24D5CC302146052100E54FCF /* Models */,
 				24D5CC2D214600E800E54FCF /* PartyRoom */,
@@ -98,6 +101,14 @@
 				24D5CC3C21461AE900E54FCF /* TrackSearchHeaderView.swift */,
 			);
 			path = TrackSearch;
+			sourceTree = "<group>";
+		};
+		24D5CC3E2146310500E54FCF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				24D5CC3F2146311300E54FCF /* UIControl.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +188,7 @@
 				24D5CC3D21461AE900E54FCF /* TrackSearchHeaderView.swift in Sources */,
 				24D5CC1A2145FD0A00E54FCF /* AppDelegate.swift in Sources */,
 				24D5CC322146052C00E54FCF /* Track.swift in Sources */,
+				24D5CC402146311300E54FCF /* UIControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

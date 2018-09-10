@@ -20,7 +20,17 @@ class PlayerView: UIView {
         button.setImage(#imageLiteral(resourceName: "PlayIcon"), for: UIControlState.normal)
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.accessibilityLabel = "PlayerSkipButton"
+        button.accessibilityLabel = "PlayerPlayButton"
+        return button
+    }()
+    
+    let pauseButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setImage(#imageLiteral(resourceName: "PauseIcon"), for: UIControlState.normal)
+        button.tintColor = .black
+        button.isHidden = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityLabel = "PlayerPauseButton"
         return button
     }()
     
@@ -29,7 +39,7 @@ class PlayerView: UIView {
         button.setImage(#imageLiteral(resourceName: "PlusIcon"), for: UIControlState.normal)
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.accessibilityLabel = "PlayerSkipButton"
+        button.accessibilityLabel = "PlayerAddTrackButton"
         return button
     }()
     
@@ -65,6 +75,7 @@ class PlayerView: UIView {
         self.addSubview(playButton)
         self.addSubview(currentTrackLabel)
         self.addSubview(addTrackButton)
+        self.addSubview(pauseButton)
         
         skipButton.addTargetClosure(for: .touchUpInside) { (button) in
             self.delegate?.didPressSkip()
@@ -72,6 +83,16 @@ class PlayerView: UIView {
         
         addTrackButton.addTargetClosure(for: .touchUpInside) { (button) in
             self.delegate?.didPressSearch()
+        }
+        
+        playButton.addTargetClosure(for: .touchUpInside) { (button) in
+            self.playButton.isHidden = true
+            self.pauseButton.isHidden = false
+        }
+        
+        pauseButton.addTargetClosure(for: .touchUpInside) { (button) in
+            self.playButton.isHidden = false
+            self.pauseButton.isHidden = true
         }
     }
     
@@ -104,6 +125,14 @@ class PlayerView: UIView {
             addTrackButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
             addTrackButton.heightAnchor.constraint(equalToConstant: 30),
             addTrackButton.widthAnchor.constraint(equalToConstant: 30)
+        ])
+        
+        // PauseTrack constraints
+        NSLayoutConstraint.activate([
+            pauseButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            pauseButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            pauseButton.heightAnchor.constraint(equalToConstant: 70),
+            pauseButton.widthAnchor.constraint(equalToConstant: 70)
         ])
     }
 }
