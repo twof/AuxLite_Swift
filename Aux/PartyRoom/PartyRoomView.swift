@@ -61,6 +61,8 @@ class PartyRoomView: UIView {
         trackListCollection.delegate = self
         trackListCollection.dataSource = self
         
+        playerView.delegate = self
+        
         playerView.configure(with: tracks[0])
     }
     
@@ -108,5 +110,13 @@ extension PartyRoomView: UICollectionViewDataSource {
         trackCell.configure(with: tracks[indexPath.row])
         
         return trackCell
+    }
+}
+
+extension PartyRoomView: PlayerViewDelegate {
+    func didPressSkip() {
+        tracks.remove(at: 0)
+        playerView.configure(with: tracks[0])
+        trackListCollection.reloadData()
     }
 }
