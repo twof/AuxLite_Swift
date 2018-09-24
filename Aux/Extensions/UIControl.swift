@@ -26,7 +26,7 @@ extension UIControl {
         }
     }
     
-    func addTargetClosure(for event: UIControlEvents, closure: @escaping UIControlTargetClosure) {
+    func addTargetClosure(for event: UIControl.Event, closure: @escaping UIControlTargetClosure) {
         targetClosure = closure
         addTarget(self, action: #selector(UIControl.closureAction), for: event)
     }

@@ -16,7 +16,7 @@ class TrackSearchHeaderView: UIView {
     
     let exitButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.setImage(#imageLiteral(resourceName: "PlusIcon"), for: UIControlState.normal)
+        button.setImage(#imageLiteral(resourceName: "PlusIcon"), for: UIControl.State.normal)
         button.transform = button.transform.rotated(by: .pi/4)
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false

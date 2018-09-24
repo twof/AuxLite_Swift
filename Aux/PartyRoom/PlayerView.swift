@@ -8,7 +8,7 @@ protocol PlayerViewDelegate {
 class PlayerView: UIView {
     let skipButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.setImage(#imageLiteral(resourceName: "SkipIcon"), for: UIControlState.normal)
+        button.setImage(#imageLiteral(resourceName: "SkipIcon"), for: UIControl.State.normal)
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         button.accessibilityLabel = "PlayerSkipButton"
@@ -17,7 +17,7 @@ class PlayerView: UIView {
     
     let playButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.setImage(#imageLiteral(resourceName: "PlayIcon"), for: UIControlState.normal)
+        button.setImage(#imageLiteral(resourceName: "PlayIcon"), for: UIControl.State.normal)
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         button.accessibilityLabel = "PlayerPlayButton"
@@ -26,7 +26,7 @@ class PlayerView: UIView {
     
     let pauseButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.setImage(#imageLiteral(resourceName: "PauseIcon"), for: UIControlState.normal)
+        button.setImage(#imageLiteral(resourceName: "PauseIcon"), for: UIControl.State.normal)
         button.tintColor = .black
         button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +36,7 @@ class PlayerView: UIView {
     
     let addTrackButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.setImage(#imageLiteral(resourceName: "PlusIcon"), for: UIControlState.normal)
+        button.setImage(#imageLiteral(resourceName: "PlusIcon"), for: UIControl.State.normal)
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         button.accessibilityLabel = "PlayerAddTrackButton"
