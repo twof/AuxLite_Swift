@@ -6,6 +6,8 @@ class PartyRoomView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 100, height: 50)
         layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 20
+        layout.minimumLineSpacing = 20
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .yellow
         collection.translatesAutoresizingMaskIntoConstraints = false
@@ -28,7 +30,24 @@ class PartyRoomView: UIView {
         return searchView
     }()
     
-    var trackListCollectionDirector: CollectionDirector
+    let trackAdapter: CollectionAdapter<Track, PartyRoomTrackCell> = {
+        let trackAdapter = CollectionAdapter<Track, PartyRoomTrackCell>()
+        
+        trackAdapter.on.dequeue = { context in
+            context.cell?.configure(with: context.model)
+        }
+        
+        trackAdapter.on.itemSize = { context in
+            guard let collection = context.collection else { fatalError() }
+            let height = CGFloat(75)
+            
+            return CGSize(width: collection.bounds.size.width - 30, height: height)
+        }
+        
+        return trackAdapter
+    }()
+    
+    var trackListCollectionDirector: FlowCollectionDirector
     
     var tracks: [Track] = [
         Track(id: 0, name: "Hello World", artistName: "Foo and the Bars", length: 10),
@@ -49,15 +68,10 @@ class PartyRoomView: UIView {
     ]
     
     override init(frame: CGRect) {
-        self.trackListCollectionDirector = CollectionDirector(self.trackListCollection)
+        self.trackListCollectionDirector = FlowCollectionDirector(self.trackListCollection)
+        self.trackListCollectionDirector.minimumLineSpacing = 10
         
-        let trackAdapter = CollectionAdapter<Track, PartyRoomTrackCell>()
-        
-        trackAdapter.on.dequeue = { context in
-            context.cell?.configure(with: context.model)
-        }
-        
-        self.trackListCollectionDirector.register(adapter: trackAdapter)
+        self.trackListCollectionDirector.register(adapter: self.trackAdapter)
         
         self.trackListCollectionDirector.add(models: self.tracks)
         self.trackListCollectionDirector.reloadData()
@@ -70,39 +84,19 @@ class PartyRoomView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.trackListCollectionDirector = CollectionDirector(self.trackListCollection)
+        self.trackListCollectionDirector = FlowCollectionDirector(self.trackListCollection)
+        self.trackListCollectionDirector.minimumInteritemSpacing = 20
         
-        let trackAdapter = CollectionAdapter<Track, PartyRoomTrackCell>()
-        
-        trackAdapter.on.dequeue = { context in
-            context.cell?.configure(with: context.model)
-        }
-        
-        self.trackListCollectionDirector.register(adapter: trackAdapter)
+        self.trackListCollectionDirector.register(adapter: self.trackAdapter)
         
         self.trackListCollectionDirector.add(models: self.tracks)
         self.trackListCollectionDirector.reloadData()
         
         super.init(coder: aDecoder)
         
-//        registerCells()
+        registerCells()
         setupViews()
         setupConstraints()
-    }
-    
-    private func setupDirector() {
-        self.trackListCollectionDirector = CollectionDirector(self.trackListCollection)
-        
-        let trackAdapter = CollectionAdapter<Track, PartyRoomTrackCell>()
-        
-        trackAdapter.on.dequeue = { context in
-            context.cell?.configure(with: context.model)
-        }
-        
-        self.trackListCollectionDirector.register(adapter: trackAdapter)
-        
-        self.trackListCollectionDirector.add(models: self.tracks)
-        self.trackListCollectionDirector.reloadData()
     }
     
     private func setupViews() {
@@ -111,9 +105,6 @@ class PartyRoomView: UIView {
         self.addSubview(trackSearchView)
         
         self.backgroundColor = .red
-        
-        trackListCollection.delegate = self
-//        trackListCollection.dataSource = self
         
         playerView.delegate = self
         trackSearchView.delegate = self
@@ -150,13 +141,6 @@ class PartyRoomView: UIView {
     
     private func registerCells() {
         trackListCollection.register(PartyRoomTrackCell.self, forCellWithReuseIdentifier: PartyRoomTrackCell.identifier)
-    }
-}
-
-extension PartyRoomView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = CGFloat(75)
-        return CGSize(width: collectionView.bounds.size.width - 30, height: height)
     }
 }
 
