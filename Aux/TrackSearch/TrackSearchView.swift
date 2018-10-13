@@ -29,21 +29,21 @@ class TrackSearchView: UIView {
     var searchText = ""
     
     var tracks: [Track] = [
-        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
-        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
-        Track(name: "Gasoline", artistName: "Alpine", length: 10),
-        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
-        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
-        Track(name: "Gasoline", artistName: "Alpine", length: 10),
-        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
-        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
-        Track(name: "Gasoline", artistName: "Alpine", length: 10),
-        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
-        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
-        Track(name: "Gasoline", artistName: "Alpine", length: 10),
-        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
-        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
-        Track(name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(id: 0, name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(id: 1, name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(id: 2, name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(id: 3, name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(id: 4, name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(id: 5, name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(id: 6, name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(id: 7, name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(id: 8, name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(id: 9, name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(id: 10, name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(id: 11, name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(id: 12, name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(id: 13, name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(id: 14, name: "Gasoline", artistName: "Alpine", length: 10),
     ]
     
     var filteredTracks: [Track] {

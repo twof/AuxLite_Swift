@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let frame = UIScreen.main.bounds
         window = UIWindow(frame: frame)
         
-        let initialViewController = HomeViewController()
+        let initialViewController = PartyRoomViewController()
         
         window!.rootViewController = initialViewController
         window!.makeKeyAndVisible()

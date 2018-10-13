@@ -6,5 +6,7 @@ target 'Aux' do
   use_frameworks!
 
   # Pods for Aux
-  pod 'Alamofire'
+  pod "Alamofire"
+  pod "PromiseKit"
+  pod "FlowKitManager"
 end

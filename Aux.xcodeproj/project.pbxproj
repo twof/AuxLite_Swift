@@ -11,6 +11,7 @@
 		244D940221523E65003C68E6 /* GetTrackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D940121523E65003C68E6 /* GetTrackInteractor.swift */; };
 		244D9405215240DD003C68E6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D9404215240DD003C68E6 /* HomeViewController.swift */; };
 		244D9407215240FA003C68E6 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D9406215240FA003C68E6 /* HomeView.swift */; };
+		244D940D2158C3C5003C68E6 /* JoinPartyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D940C2158C3C5003C68E6 /* JoinPartyInteractor.swift */; };
 		24D5CC1A2145FD0A00E54FCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC192145FD0A00E54FCF /* AppDelegate.swift */; };
 		24D5CC212145FD0C00E54FCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D5CC202145FD0C00E54FCF /* Assets.xcassets */; };
 		24D5CC2C2145FD8000E54FCF /* PartyRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5CC2B2145FD8000E54FCF /* PartyRoomViewController.swift */; };
@@ -30,6 +31,7 @@
 		244D940121523E65003C68E6 /* GetTrackInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTrackInteractor.swift; sourceTree = "<group>"; };
 		244D9404215240DD003C68E6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		244D9406215240FA003C68E6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		244D940C2158C3C5003C68E6 /* JoinPartyInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinPartyInteractor.swift; sourceTree = "<group>"; };
 		24D5CC162145FD0A00E54FCF /* Aux.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aux.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D5CC192145FD0A00E54FCF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24D5CC202145FD0C00E54FCF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			children = (
 				244D93FF21523CCC003C68E6 /* Endpoints.swift */,
 				244D940121523E65003C68E6 /* GetTrackInteractor.swift */,
+				244D940C2158C3C5003C68E6 /* JoinPartyInteractor.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -257,10 +260,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Aux/Pods-Aux-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/FlowKitManager/FlowKitManager.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlowKitManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -283,6 +290,7 @@
 				24D5CC3621460D0300E54FCF /* PlayerView.swift in Sources */,
 				244D940221523E65003C68E6 /* GetTrackInteractor.swift in Sources */,
 				24D5CC3D21461AE900E54FCF /* TrackSearchHeaderView.swift in Sources */,
+				244D940D2158C3C5003C68E6 /* JoinPartyInteractor.swift in Sources */,
 				24D5CC1A2145FD0A00E54FCF /* AppDelegate.swift in Sources */,
 				24D5CC322146052C00E54FCF /* Track.swift in Sources */,
 				24D5CC402146311300E54FCF /* UIControl.swift in Sources */,

@@ -1,4 +1,5 @@
 import UIKit
+import FlowKitManager
 
 class PartyRoomView: UIView {
     let trackListCollection: UICollectionView = {
@@ -27,25 +28,40 @@ class PartyRoomView: UIView {
         return searchView
     }()
     
+    var trackListCollectionDirector: CollectionDirector
+    
     var tracks: [Track] = [
-        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
-        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
-        Track(name: "Gasoline", artistName: "Alpine", length: 10),
-        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
-        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
-        Track(name: "Gasoline", artistName: "Alpine", length: 10),
-        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
-        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
-        Track(name: "Gasoline", artistName: "Alpine", length: 10),
-        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
-        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
-        Track(name: "Gasoline", artistName: "Alpine", length: 10),
-        Track(name: "Hello World", artistName: "Foo and the Bars", length: 10),
-        Track(name: "Crave You", artistName: "Flight Facilities", length: 10),
-        Track(name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(id: 0, name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(id: 1, name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(id: 2, name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(id: 3, name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(id: 4, name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(id: 5, name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(id: 6, name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(id: 7, name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(id: 8, name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(id: 9, name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(id: 10, name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(id: 11, name: "Gasoline", artistName: "Alpine", length: 10),
+        Track(id: 12, name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(id: 13, name: "Crave You", artistName: "Flight Facilities", length: 10),
+        Track(id: 14, name: "Gasoline", artistName: "Alpine", length: 10),
     ]
     
     override init(frame: CGRect) {
+        self.trackListCollectionDirector = CollectionDirector(self.trackListCollection)
+        
+        let trackAdapter = CollectionAdapter<Track, PartyRoomTrackCell>()
+        
+        trackAdapter.on.dequeue = { context in
+            context.cell?.configure(with: context.model)
+        }
+        
+        self.trackListCollectionDirector.register(adapter: trackAdapter)
+        
+        self.trackListCollectionDirector.add(models: self.tracks)
+        self.trackListCollectionDirector.reloadData()
+        
         super.init(frame: frame)
         
         registerCells()
@@ -54,11 +70,39 @@ class PartyRoomView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
+        self.trackListCollectionDirector = CollectionDirector(self.trackListCollection)
+        
+        let trackAdapter = CollectionAdapter<Track, PartyRoomTrackCell>()
+        
+        trackAdapter.on.dequeue = { context in
+            context.cell?.configure(with: context.model)
+        }
+        
+        self.trackListCollectionDirector.register(adapter: trackAdapter)
+        
+        self.trackListCollectionDirector.add(models: self.tracks)
+        self.trackListCollectionDirector.reloadData()
+        
         super.init(coder: aDecoder)
         
-        registerCells()
+//        registerCells()
         setupViews()
         setupConstraints()
+    }
+    
+    private func setupDirector() {
+        self.trackListCollectionDirector = CollectionDirector(self.trackListCollection)
+        
+        let trackAdapter = CollectionAdapter<Track, PartyRoomTrackCell>()
+        
+        trackAdapter.on.dequeue = { context in
+            context.cell?.configure(with: context.model)
+        }
+        
+        self.trackListCollectionDirector.register(adapter: trackAdapter)
+        
+        self.trackListCollectionDirector.add(models: self.tracks)
+        self.trackListCollectionDirector.reloadData()
     }
     
     private func setupViews() {
@@ -69,7 +113,7 @@ class PartyRoomView: UIView {
         self.backgroundColor = .red
         
         trackListCollection.delegate = self
-        trackListCollection.dataSource = self
+//        trackListCollection.dataSource = self
         
         playerView.delegate = self
         trackSearchView.delegate = self
@@ -116,27 +160,13 @@ extension PartyRoomView: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PartyRoomView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tracks.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PartyRoomTrackCell.identifier, for: indexPath)
-        
-        guard let trackCell = cell as? PartyRoomTrackCell else {return UICollectionViewCell()}
-        
-        trackCell.configure(with: tracks[indexPath.row])
-        
-        return trackCell
-    }
-}
-
 extension PartyRoomView: PlayerViewDelegate {
     func didPressSkip() {
         tracks.remove(at: 0)
         playerView.configure(with: tracks[0])
-        trackListCollection.reloadData()
+        trackListCollectionDirector.reloadData(after: {
+            self.trackListCollectionDirector.firstSection()?.set(models: self.tracks)
+        })
     }
     
     func didPressSearch() {
@@ -148,10 +178,13 @@ extension PartyRoomView: TrackSearchViewDelegate {
     func didSelect(track: Track) {
         trackSearchView.isHidden = true
         tracks.append(track)
-        trackListCollection.reloadData()
+        trackListCollectionDirector.reloadData(after: {
+            self.trackListCollectionDirector.firstSection()?.set(models: self.tracks)
+        })
     }
     
     func didSelectExit() {
+        trackSearchView.resignFirstResponder()
         trackSearchView.isHidden = true
     }
 }

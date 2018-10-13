@@ -1,9 +1,10 @@
-//
-//  JoinPartyInteractor.swift
-//  Aux
-//
-//  Created by fnord on 9/24/18.
-//  Copyright © 2018 twof. All rights reserved.
-//
+import Alamofire
+import PromiseKit
 
-import Foundation
+//struct JoinPartyInteractor {
+//    func execute(partyCode: String) -> Promise<Void> {
+//        return Promise<Void> { resolver in
+//            Alamofire.request("http://localhost:8080/joinParty", method: .put, parameters: <#T##Parameters?#>, encoding: <#T##ParameterEncoding#>, headers: <#T##HTTPHeaders?#>)
+//        }
+//    }
+//}
