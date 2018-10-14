@@ -4,10 +4,6 @@ import FlowKitManager
 class PartyRoomView: UIView {
     let trackListCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 50)
-        layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 20
-        layout.minimumLineSpacing = 20
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .yellow
         collection.translatesAutoresizingMaskIntoConstraints = false

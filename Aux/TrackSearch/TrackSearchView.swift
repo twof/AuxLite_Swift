@@ -1,4 +1,5 @@
 import UIKit
+import FlowKitManager
 
 protocol TrackSearchViewDelegate {
     func didSelect(track: Track)
@@ -8,8 +9,6 @@ protocol TrackSearchViewDelegate {
 class TrackSearchView: UIView {
     let trackListCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 50)
-        layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .yellow
         collection.translatesAutoresizingMaskIntoConstraints = false
@@ -55,8 +54,37 @@ class TrackSearchView: UIView {
         }
     }
     
+    let trackAdapter: CollectionAdapter<Track, PartyRoomTrackCell> = {
+        let trackAdapter = CollectionAdapter<Track, PartyRoomTrackCell>()
+        
+        trackAdapter.on.dequeue = { context in
+            context.cell?.configure(with: context.model)
+        }
+        
+        trackAdapter.on.itemSize = { context in
+            guard let collection = context.collection else { fatalError() }
+            let height = CGFloat(75)
+            
+            return CGSize(width: collection.bounds.size.width - 30, height: height)
+        }
+        
+        return trackAdapter
+    }()
+    
+    var trackListCollectionDirector: FlowCollectionDirector
+    
     override init(frame: CGRect) {
+        self.trackListCollectionDirector = FlowCollectionDirector(self.trackListCollection)
+        self.trackListCollectionDirector.minimumLineSpacing = 10
+        
         super.init(frame: frame)
+        
+        self.trackAdapter.on.didSelect = { context in
+            self.delegate?.didSelect(track: self.filteredTracks[context.indexPath.row])
+        }
+        self.trackListCollectionDirector.register(adapter: self.trackAdapter)
+        self.trackListCollectionDirector.add(models: self.filteredTracks)
+        self.trackListCollectionDirector.reloadData()
         
         registerCells()
         setupViews()
@@ -64,6 +92,14 @@ class TrackSearchView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
+        self.trackListCollectionDirector = FlowCollectionDirector(self.trackListCollection)
+        self.trackListCollectionDirector.minimumLineSpacing = 10
+        
+        self.trackListCollectionDirector.register(adapter: self.trackAdapter)
+        
+        self.trackListCollectionDirector.add(models: self.tracks)
+        self.trackListCollectionDirector.reloadData()
+        
         super.init(coder: aDecoder)
         
         registerCells()
@@ -76,16 +112,12 @@ class TrackSearchView: UIView {
         self.addSubview(trackSearchHeader)
         self.backgroundColor = .red
         
-        trackListCollection.delegate = self
-        trackListCollection.dataSource = self
-        
         trackSearchHeader.delegate = self
         
         trackSearchHeader.configure(with: tracks[0])
     }
     
     private func setupConstraints() {
-        
         // TracklistCollection constraints
         NSLayoutConstraint.activate([
             trackListCollection.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -108,37 +140,12 @@ class TrackSearchView: UIView {
     }
 }
 
-extension TrackSearchView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.delegate?.didSelect(track: filteredTracks[indexPath.row])
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = CGFloat(75)
-        return CGSize(width: collectionView.bounds.size.width - 30, height: height)
-    }
-}
-
-extension TrackSearchView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filteredTracks.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PartyRoomTrackCell.identifier, for: indexPath)
-        
-        guard let trackCell = cell as? PartyRoomTrackCell else {return UICollectionViewCell()}
-        
-        trackCell.configure(with: filteredTracks[indexPath.row])
-        
-        return trackCell
-    }
-}
-
 extension TrackSearchView: TrackSearchHeaderViewDelegate {
     func searchTextDidChage(text: String) {
         self.searchText = text
-        trackListCollection.reloadData()
+        self.trackListCollectionDirector.reloadData(after: {
+            self.trackListCollectionDirector.firstSection()?.set(models: self.filteredTracks)
+        })
     }
     
     func didSelectExit() {
