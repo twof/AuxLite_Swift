@@ -46,6 +46,7 @@ class PartyRoomView: UIView {
     var trackListCollectionDirector: FlowCollectionDirector
     
     var tracks: [Track] = [
+        Track(id: 20, name: "This is a very long name that should span multiple lines and expand the cell so that we can see a lomg boi", artistName: "This is a very long artist name that should span multiple lines and expand the cell so that we can see a lomg boiThis is a very long artist name that should span multiple lines and expand the cell so that we can see a lomg boi", length: 10),
         Track(id: 0, name: "Hello World", artistName: "Foo and the Bars", length: 10),
         Track(id: 1, name: "Crave You", artistName: "Flight Facilities", length: 10),
         Track(id: 2, name: "Gasoline", artistName: "Alpine", length: 10),
