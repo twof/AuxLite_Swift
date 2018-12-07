@@ -20,6 +20,15 @@ class HomeView: UIView {
         return button
     }()
     
+    let signupButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityLabel = "SignupButton"
+        button.backgroundColor = .brown
+        button.setTitle("Signup", for: .normal)
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -29,22 +38,14 @@ class HomeView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        setupViews()
-        setupConstraints()
-        setupActions()
+        fatalError()
     }
     
     func setupActions() {
         self.partyCodeTextField.addTargetClosure(for: UIControl.Event.editingChanged) { (control) in
             guard let textField = control as? UITextField else { return }
-            print(textField.text)
             self.joinPartyButton.isEnabled = textField.text != ""
             self.joinPartyButton.isUserInteractionEnabled = textField.text != ""
-
-            print("isenabled:", self.joinPartyButton.isEnabled)
-            print("userInteraction:", self.joinPartyButton.isUserInteractionEnabled)
         }
         
         self.joinPartyButton.addTargetClosure(for: .touchUpInside ) { (control) in
@@ -57,6 +58,7 @@ class HomeView: UIView {
         
         self.addSubview(partyCodeTextField)
         self.addSubview(joinPartyButton)
+        self.addSubview(signupButton)
     }
     
     func setupConstraints() {
@@ -72,6 +74,13 @@ class HomeView: UIView {
             joinPartyButton.topAnchor.constraint(equalTo: partyCodeTextField.bottomAnchor, constant: 20),
             joinPartyButton.widthAnchor.constraint(equalToConstant: 200),
             joinPartyButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        NSLayoutConstraint.activate([
+            signupButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            signupButton.topAnchor.constraint(equalTo: joinPartyButton.bottomAnchor, constant: 20),
+            signupButton.widthAnchor.constraint(equalToConstant: 200),
+            signupButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 }

@@ -92,19 +92,7 @@ class TrackSearchView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.trackListCollectionDirector = FlowCollectionDirector(self.trackListCollection)
-        self.trackListCollectionDirector.minimumLineSpacing = 10
-        
-        self.trackListCollectionDirector.register(adapter: self.trackAdapter)
-        
-        self.trackListCollectionDirector.add(models: self.tracks)
-        self.trackListCollectionDirector.reloadData()
-        
-        super.init(coder: aDecoder)
-        
-        registerCells()
-        setupViews()
-        setupConstraints()
+        fatalError()
     }
     
     private func setupViews() {

@@ -43,6 +43,23 @@ class PartyRoomView: UIView {
         return trackAdapter
     }()
     
+    let usernameAdapter: CollectionAdapter<String, UsernameCell> = {
+        let usernameAdapter = CollectionAdapter<String, UsernameCell>()
+        
+        usernameAdapter.on.dequeue = { context in
+            context.cell?.configure(username: context.model)
+        }
+        
+        usernameAdapter.on.itemSize = { context in
+            guard let collection = context.collection else { fatalError() }
+            let height = CGFloat(75)
+            
+            return CGSize(width: collection.bounds.size.width - 30, height: height)
+        }
+        
+        return usernameAdapter
+    }()
+    
     var trackListCollectionDirector: FlowCollectionDirector
     
     var tracks: [Track] = [
@@ -63,16 +80,23 @@ class PartyRoomView: UIView {
         Track(id: 14, name: "Gasoline", artistName: "Alpine", length: 10),
     ]
     
+    var usernames: [String] = [
+        "twof",
+        "another username"
+    ]
+    
     override init(frame: CGRect) {
         self.trackListCollectionDirector = FlowCollectionDirector(self.trackListCollection)
+        
+        super.init(frame: frame)
+        
         self.trackListCollectionDirector.minimumLineSpacing = 10
         
         self.trackListCollectionDirector.register(adapter: self.trackAdapter)
+        self.trackListCollectionDirector.register(adapter: self.usernameAdapter)
         
-        self.trackListCollectionDirector.add(models: self.tracks)
+        self.trackListCollectionDirector.add(self.createSection())
         self.trackListCollectionDirector.reloadData()
-        
-        super.init(frame: frame)
         
         registerCells()
         setupViews()
@@ -80,19 +104,14 @@ class PartyRoomView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.trackListCollectionDirector = FlowCollectionDirector(self.trackListCollection)
-        self.trackListCollectionDirector.minimumInteritemSpacing = 20
-        
-        self.trackListCollectionDirector.register(adapter: self.trackAdapter)
-        
-        self.trackListCollectionDirector.add(models: self.tracks)
-        self.trackListCollectionDirector.reloadData()
-        
-        super.init(coder: aDecoder)
-        
-        registerCells()
-        setupViews()
-        setupConstraints()
+        fatalError()
+    }
+    
+    func createSection() -> CollectionSection {
+        let section = CollectionSection(self.tracks)
+        section.add(model: self.usernames[0], at: 0)
+        section.add(model: self.usernames[1], at: self.tracks.count + 1)
+        return section
     }
     
     private func setupViews() {
@@ -109,7 +128,6 @@ class PartyRoomView: UIView {
     }
     
     private func setupConstraints() {
-        
         // TracklistCollection constraints
         NSLayoutConstraint.activate([
             trackListCollection.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -137,6 +155,7 @@ class PartyRoomView: UIView {
     
     private func registerCells() {
         trackListCollection.register(PartyRoomTrackCell.self, forCellWithReuseIdentifier: PartyRoomTrackCell.identifier)
+        trackListCollection.register(UsernameCell.self, forCellWithReuseIdentifier: UsernameCell.identifier)
     }
 }
 
@@ -166,5 +185,11 @@ extension PartyRoomView: TrackSearchViewDelegate {
     func didSelectExit() {
         trackSearchView.resignFirstResponder()
         trackSearchView.isHidden = true
+    }
+}
+
+extension String: ModelProtocol {
+    public var modelID: Int {
+        return self.hashValue
     }
 }
