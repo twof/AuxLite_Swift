@@ -63,6 +63,7 @@ class PartyRoomView: UIView {
     var trackListCollectionDirector: FlowCollectionDirector
     
     var tracks: [Track] = [
+        Track(id: 20, name: "This is a very long name that should span multiple lines and expand the cell so that we can see a lomg boi", artistName: "This is a very long artist name that should span multiple lines and expand the cell so that we can see a lomg boiThis is a very long artist name that should span multiple lines and expand the cell so that we can see a lomg boi", length: 10),
         Track(id: 0, name: "Hello World", artistName: "Foo and the Bars", length: 10),
         Track(id: 1, name: "Crave You", artistName: "Flight Facilities", length: 10),
         Track(id: 2, name: "Gasoline", artistName: "Alpine", length: 10),
@@ -95,7 +96,8 @@ class PartyRoomView: UIView {
         self.trackListCollectionDirector.register(adapter: self.trackAdapter)
         self.trackListCollectionDirector.register(adapter: self.usernameAdapter)
         
-        self.trackListCollectionDirector.add(self.createSection())
+        self.trackListCollectionDirector.add(self.createUsersSection())
+        self.trackListCollectionDirector.add(self.createTracksSection())
         self.trackListCollectionDirector.reloadData()
         
         registerCells()
@@ -107,11 +109,16 @@ class PartyRoomView: UIView {
         fatalError()
     }
     
-    func createSection() -> CollectionSection {
-        let section = CollectionSection(self.tracks)
-        section.add(model: self.usernames[0], at: 0)
-        section.add(model: self.usernames[1], at: self.tracks.count + 1)
-        return section
+    func createTracksSection() -> CollectionSection {
+        let tracksSection = CollectionSection(self.tracks)
+        
+        return tracksSection
+    }
+    
+    func createUsersSection() -> CollectionSection {
+        let userSection = CollectionSection(self.usernames)
+        
+        return userSection
     }
     
     private func setupViews() {
@@ -154,8 +161,8 @@ class PartyRoomView: UIView {
     }
     
     private func registerCells() {
-        trackListCollection.register(PartyRoomTrackCell.self, forCellWithReuseIdentifier: PartyRoomTrackCell.identifier)
-        trackListCollection.register(UsernameCell.self, forCellWithReuseIdentifier: UsernameCell.identifier)
+        trackListCollection.register(cell: PartyRoomTrackCell.self)
+        trackListCollection.register(cell: UsernameCell.self)
     }
 }
 
@@ -164,7 +171,7 @@ extension PartyRoomView: PlayerViewDelegate {
         tracks.remove(at: 0)
         playerView.configure(with: tracks[0])
         trackListCollectionDirector.reloadData(after: {
-            self.trackListCollectionDirector.firstSection()?.set(models: self.tracks)
+            self.trackListCollectionDirector.section(at: 1)?.set(models: self.tracks)
         })
     }
     
@@ -191,5 +198,11 @@ extension PartyRoomView: TrackSearchViewDelegate {
 extension String: ModelProtocol {
     public var modelID: Int {
         return self.hashValue
+    }
+}
+
+extension UICollectionView {
+    func register(cell: (UICollectionViewCell & Identifiable).Type) {
+        self.register(cell.self, forCellWithReuseIdentifier: cell.identifier)
     }
 }
