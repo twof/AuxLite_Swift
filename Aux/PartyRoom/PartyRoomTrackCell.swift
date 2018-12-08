@@ -1,5 +1,6 @@
 import UIKit
 import FlowKitManager
+import Foundation
 
 protocol Identifiable {
     static var identifier: String { get }
@@ -87,5 +88,30 @@ class PartyRoomTrackCell: UICollectionViewCell, Identifiable {
             artistNameTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             artistNameTextView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor)
         ])
+    }
+    
+    var _layoutCalculated = false
+    
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        if !_layoutCalculated {
+            
+            setNeedsLayout()
+            layoutIfNeeded()
+            let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
+            var newFrame = layoutAttributes.frame
+            
+            
+            newFrame.size.height = ceil(size.height)
+            layoutAttributes.frame = newFrame
+            
+            print("New frame:", newFrame)
+            
+            _layoutCalculated = true
+            
+            return layoutAttributes
+            
+            
+        }
+        return layoutAttributes;
     }
 }

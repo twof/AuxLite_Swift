@@ -34,10 +34,7 @@ class PartyRoomView: UIView {
         }
         
         trackAdapter.on.itemSize = { context in
-            guard let collection = context.collection else { fatalError() }
-            let height = CGFloat(75)
-            
-            return CGSize(width: collection.bounds.size.width - 30, height: height)
+            return CGSize(width: 300, height: 1)
         }
         
         return trackAdapter
@@ -77,6 +74,7 @@ class PartyRoomView: UIView {
         Track(id: 10, name: "Crave You", artistName: "Flight Facilities", length: 10),
         Track(id: 11, name: "Gasoline", artistName: "Alpine", length: 10),
         Track(id: 12, name: "Hello World", artistName: "Foo and the Bars", length: 10),
+        Track(id: 21, name: "This is a very long name that should span multiple lines and expand the cell so that we can see a lomg boi", artistName: "This is a very long artist name that should span multiple lines and expand the cell so that we can see a lomg boiThis is a very long artist name that should span multiple lines and expand the cell so that we can see a lomg boi", length: 10),
         Track(id: 13, name: "Crave You", artistName: "Flight Facilities", length: 10),
         Track(id: 14, name: "Gasoline", artistName: "Alpine", length: 10),
     ]
@@ -89,14 +87,16 @@ class PartyRoomView: UIView {
     override init(frame: CGRect) {
         self.trackListCollectionDirector = FlowCollectionDirector(self.trackListCollection)
         
+        self.trackListCollectionDirector.layout?.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        
         super.init(frame: frame)
         
         self.trackListCollectionDirector.minimumLineSpacing = 10
         
         self.trackListCollectionDirector.register(adapter: self.trackAdapter)
-        self.trackListCollectionDirector.register(adapter: self.usernameAdapter)
+//        self.trackListCollectionDirector.register(adapter: self.usernameAdapter)
         
-        self.trackListCollectionDirector.add(self.createUsersSection())
+//        self.trackListCollectionDirector.add(self.createUsersSection())
         self.trackListCollectionDirector.add(self.createTracksSection())
         self.trackListCollectionDirector.reloadData()
         
